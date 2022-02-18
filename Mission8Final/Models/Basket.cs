@@ -9,12 +9,15 @@ namespace Mission8Final.Models
     {
         public List<BasketLineItem> Items { get; set; } = new List<BasketLineItem>();
 
+        // Add an item to the busket
         public void AddItem(Book libre, int qty)
         {
+            // get the line that matches its BookID
             BasketLineItem line = Items
                 .Where(p => p.Book.BookID == libre.BookID)
                 .FirstOrDefault();
 
+            // if line is null, create a new instance of BasketLineItem with the info in the parameter
             if (line == null)
             {
                 Items.Add(new BasketLineItem
@@ -23,12 +26,14 @@ namespace Mission8Final.Models
                     Quantity = qty
                 });
             }
+            // Else, add the quantity to the existing quantity
             else
             {
                 line.Quantity += qty;
             }
         }
 
+        // Calculate the total sum (price) of the items in the basket
         public double CalculateTotal()
         {
             double sum = Items.Sum(x => x.Quantity * x.Book.Price);

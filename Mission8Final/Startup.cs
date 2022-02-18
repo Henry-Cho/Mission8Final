@@ -55,6 +55,7 @@ namespace Mission8Final
             app.UseStaticFiles();
 
             app.UseRouting();
+            // enabling to use session storage
             app.UseSession();
             app.UseAuthorization();
 
@@ -82,6 +83,7 @@ namespace Mission8Final
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+                // Enabling to route through cshtml in Pages folder
                 endpoints.MapRazorPages();
             });
         }

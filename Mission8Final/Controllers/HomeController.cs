@@ -32,12 +32,15 @@ namespace Mission7Final.Controllers
             var x = new BooksViewModel
             {
                 // Have a Books model with 10 items without the 10 previous items.
+                // Use Where function to enable to show the items based on the categoryType a user clicks
+                // If the categoryType is null, just show all the books
                 Books = repo.Books
                 .Where(x => x.Category == categoryType || categoryType == null)
                 .OrderBy(p => p.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
                 // Define total number of projects, projects per page, and current page.
+                // When the categoryType is not null, the number of items displayed is the length of the filtered object by the categoryType
                 PageInfo = new PageInfo
                 {
                     TotalNumProjects = (categoryType == null ? repo.Books.Count() : repo.Books.Where(x => x.Category == categoryType).Count()),
